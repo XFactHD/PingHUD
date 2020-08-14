@@ -1,0 +1,16 @@
+[
+{
+  "modid": "pinghud",
+  "name": "PingHUD",
+  "description": "This mod shows your real ping on the screen",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["XFactHD"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
