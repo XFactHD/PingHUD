@@ -32,7 +32,7 @@ public class ConfigHandler
 
     private static void loadConfiguration()
     {
-        textPosition  = configuration.getInt("textPosition", "General", 0, 0, 3, "Sets the position of the ping display on the screen (0 --> top left, 1 --> top right, 2 --> bottom left, 3 --> bottom right).");
+        textPosition  = configuration.getInt("textPosition", "General", 0, 0, 3, "Sets the position of the ping display on the screen (0 --> top left, 1 --> top right, 2 --> bottom right, 3 --> bottom left).");
 
         if (configuration.hasChanged())
         {

@@ -7,6 +7,7 @@ import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class ClientEventHandler
@@ -14,17 +15,17 @@ public class ClientEventHandler
     private static final int TOP_OFFSET = 2;
     private static final int LEFT_OFFSET = 2;
     private static final int BOTTOM_OFFSET = 10;
-    private static final int RIGHT_OFFSET = 62;
+    private static final int RIGHT_OFFSET = 78;
     private int lastDisplayValue = -1;
     private long lastDisplayTime = 0;
 
     @SubscribeEvent
     public void drawScreen(RenderGameOverlayEvent.Pre event)
     {
-        if (event.getType() == RenderGameOverlayEvent.ElementType.CROSSHAIRS)
+        if (event.getType() == RenderGameOverlayEvent.ElementType.TEXT)
         {
-            FontRenderer fontRenderer = Minecraft.getMinecraft().fontRendererObj;
-            String playerName = Minecraft.getMinecraft().thePlayer.getName();
+            FontRenderer fontRenderer = Minecraft.getMinecraft().fontRenderer;
+            String playerName = Minecraft.getMinecraft().player.getName();
             NetHandlerPlayClient netHandler = Minecraft.getMinecraft().getConnection();
 
             int ping = -1;
@@ -75,8 +76,11 @@ public class ClientEventHandler
                 }
             }
 
-            String offset = ping < 10 ? "   " : ping < 100 ? "  " : ping < 1000 ? " " : "";
-            fontRenderer.drawString("Ping: " + (ping >= 0 ? offset + ping : "NaN") + " ms", textX, textY, EnumDyeColor.WHITE.getMapColor().colorValue, true);
+            int offset = ping < 0 ? 6 : (int)Math.log10(ping) + 1;
+            String text = "Ping:";
+            fontRenderer.drawString(text, textX, textY, EnumDyeColor.WHITE.getColorValue(), true);
+            textX += fontRenderer.getStringWidth(text) + 6 + offset;
+            fontRenderer.drawString((ping >= 0 ? ping : "NaN") + " ms", textX, textY, EnumDyeColor.WHITE.getColorValue(), true);
         }
     }
 }
