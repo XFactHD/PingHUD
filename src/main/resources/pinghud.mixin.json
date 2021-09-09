@@ -1,0 +1,15 @@
+{
+    "required": true,
+    "package": "xfacthd.pinghud.mixin",
+    "compatibilityLevel": "JAVA_8",
+    "refmap": "pinghud.refmap.json",
+    "mixins": [
+    ],
+    "client":[
+        "MixinPlayerTabOverlay"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    },
+    "minVersion": "0.8"
+}
