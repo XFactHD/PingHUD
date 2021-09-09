@@ -1,0 +1,27 @@
+modLoader="javafml"
+loaderVersion="[31,)"
+issueTrackerURL="https://www.github.com/XFactHD/PingHUD"
+[[mods]]
+	modId="pinghud"
+	version="${file.jarVersion}"
+	displayName="SoundLog"
+	#updateJSONURL="http://myurl.me/"
+	#displayURL="http://example.com/"
+	logoFile="logo.png"
+	#credits="..."
+	authors="XFactHD"
+	description='''
+	Logs sounds that are being played
+	'''
+[[dependencies.pinghud]]
+    modId="forge"
+    mandatory=true
+    versionRange="[31,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.pinghud]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.15.2]"
+    ordering="NONE"
+    side="BOTH"
