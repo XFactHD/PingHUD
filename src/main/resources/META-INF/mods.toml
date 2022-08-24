@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[40,)"
+loaderVersion="[43,)"
 license="LGPL v3"
 issueTrackerURL="https://github.com/XFactHD/PingHUD"
 
@@ -7,6 +7,7 @@ issueTrackerURL="https://github.com/XFactHD/PingHUD"
     modId="pinghud" #mandatory
     version="${file.jarVersion}" #mandatory
     displayName="PingHUD" #mandatory
+    displayTest="IGNORE_ALL_VERSION"
     #updateJSONURL="https://change.me.example.invalid/updates.json" #optional
     #displayURL="https://change.me.to.your.mods.homepage.example.invalid/" #optional
     logoFile="logo.png"
@@ -16,12 +17,12 @@ issueTrackerURL="https://github.com/XFactHD/PingHUD"
 [[dependencies.pinghud]] #optional
     modId="forge" #mandatory
     mandatory=true #mandatory
-    versionRange="[40,)" #mandatory
+    versionRange="[43,)" #mandatory
     ordering="NONE"
     side="BOTH"
 [[dependencies.pinghud]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.18.2,1.19)"
+    versionRange="[1.19.2,1.20)"
     ordering="NONE"
     side="BOTH"
