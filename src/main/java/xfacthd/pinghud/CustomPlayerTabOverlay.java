@@ -1,7 +1,7 @@
 package xfacthd.pinghud;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.PlayerTabOverlay;
 import net.minecraft.client.multiplayer.PlayerInfo;
 
@@ -21,7 +21,7 @@ public class CustomPlayerTabOverlay extends PlayerTabOverlay
     }
 
     @Override
-    protected void renderPingIcon(PoseStack poseStack, int colWidth, int entryX, int entryY, PlayerInfo playerInfo)
+    protected void renderPingIcon(GuiGraphics graphics, int colWidth, int entryX, int entryY, PlayerInfo playerInfo)
     {
         int ping = playerInfo.getLatency();
 
@@ -40,8 +40,8 @@ public class CustomPlayerTabOverlay extends PlayerTabOverlay
         }
 
         String text = formatPing(ping);
-        Minecraft.getInstance().font.drawShadow(
-                poseStack,
+        graphics.drawString(
+                Minecraft.getInstance().font,
                 text,
                 entryX + colWidth - minecraft.font.width(text),
                 entryY,
@@ -49,7 +49,13 @@ public class CustomPlayerTabOverlay extends PlayerTabOverlay
         );
     }
 
-    private static String formatPing(int ping) { return String.format(Locale.ROOT, "%" + DIGIT_COUNT + "dms", ping); }
+    private static String formatPing(int ping)
+    {
+        return String.format(Locale.ROOT, "%" + DIGIT_COUNT + "dms", ping);
+    }
 
-    public static int getPingDisplayWidth() { return PADDING + Minecraft.getInstance().font.width(formatPing(0)); }
+    public static int getPingDisplayWidth()
+    {
+        return PADDING + Minecraft.getInstance().font.width(formatPing(0));
+    }
 }

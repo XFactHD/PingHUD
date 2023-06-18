@@ -14,7 +14,7 @@ import org.slf4j.Logger;
 import java.lang.reflect.Field;
 
 @Mod(PingHUD.MODID)
-public class PingHUD
+public final class PingHUD
 {
     public static final String MODID = "pinghud";
     public static final Logger LOGGER = LogUtils.getLogger();
@@ -28,7 +28,7 @@ public class PingHUD
     }
 
     @Mod.EventBusSubscriber(modid = MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
-    public static class ClientEvents
+    public static final class ClientEvents
     {
         @SubscribeEvent
         public static void onClientSetup(final FMLClientSetupEvent event)
@@ -51,5 +51,7 @@ public class PingHUD
                 }
             });
         }
+
+        private ClientEvents() { }
     }
 }
