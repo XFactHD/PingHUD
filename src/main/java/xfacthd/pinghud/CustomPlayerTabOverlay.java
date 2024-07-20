@@ -7,7 +7,7 @@ import net.minecraft.client.multiplayer.PlayerInfo;
 
 import java.util.Locale;
 
-public class CustomPlayerTabOverlay extends PlayerTabOverlay
+public final class CustomPlayerTabOverlay extends PlayerTabOverlay
 {
     private static final int PADDING = 6; //Must be an even number!!!
     private static final int DIGIT_COUNT = 4;

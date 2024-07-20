@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="${loader_version_range}"
+loaderVersion="[1,)"
 license="LGPL v3"
 issueTrackerURL="https://github.com/XFactHD/PingHUD"
 
@@ -7,22 +7,24 @@ issueTrackerURL="https://github.com/XFactHD/PingHUD"
     modId="pinghud"
     version="${mod_version}"
     displayName="PingHUD"
-    displayTest="IGNORE_ALL_VERSION"
     displayURL="https://www.curseforge.com/minecraft/mc-mods/pinghud"
     logoFile="logo.png"
     authors="XFactHD"
     description=''''''
+    
+[[mixins]]
+    config="pinghud.mixin.json"
 
 [[dependencies.pinghud]]
-    modId="forge"
-    mandatory=true
-    versionRange="${forge_version_range}"
+    modId="neoforge"
+    type="required"
+    versionRange="${neo_version_range}"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.pinghud]]
     modId="minecraft"
-    mandatory=true
+    type="required"
     versionRange="${minecraft_version_range}"
     ordering="NONE"
     side="BOTH"

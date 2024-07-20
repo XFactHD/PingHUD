@@ -1,57 +1,41 @@
 package xfacthd.pinghud;
 
-import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.loading.FMLEnvironment;
-import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
-import org.slf4j.Logger;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.fml.util.ObfuscationReflectionHelper;
 
-import java.lang.reflect.Field;
-
-@Mod(PingHUD.MODID)
+@Mod(value = PingHUD.MOD_ID, dist = Dist.CLIENT)
+@SuppressWarnings("UtilityClassWithPublicConstructor")
 public final class PingHUD
 {
-    public static final String MODID = "pinghud";
-    public static final Logger LOGGER = LogUtils.getLogger();
+    public static final String MOD_ID = "pinghud";
 
-    public PingHUD()
+    public PingHUD(IEventBus modBus)
     {
-        if (FMLEnvironment.dist != Dist.CLIENT)
-        {
-            LOGGER.warn("PingHUD is a client-only mod, it should not be installed on the server!");
-        }
+        modBus.addListener(PingHUD::onClientSetup);
     }
 
-    @Mod.EventBusSubscriber(modid = MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
-    public static final class ClientEvents
+    private static void onClientSetup(final FMLClientSetupEvent event)
     {
-        @SubscribeEvent
-        public static void onClientSetup(final FMLClientSetupEvent event)
+        event.enqueueWork(() ->
         {
-            event.enqueueWork(() ->
+            try
             {
-                Field tabListField = ObfuscationReflectionHelper.findField(Gui.class, "f_92998_");
-                tabListField.setAccessible(true);
-
-                try
-                {
-                    tabListField.set(
-                            Minecraft.getInstance().gui,
-                            new CustomPlayerTabOverlay(Minecraft.getInstance())
-                    );
-                }
-                catch (IllegalAccessException e)
-                {
-                    throw new RuntimeException("Failed to replace Gui#tabList!", e);
-                }
-            });
-        }
-
-        private ClientEvents() { }
+                ObfuscationReflectionHelper.setPrivateValue(
+                        Gui.class,
+                        Minecraft.getInstance().gui,
+                        new CustomPlayerTabOverlay(Minecraft.getInstance()),
+                        "tabList"
+                );
+            }
+            catch (Throwable e)
+            {
+                throw new RuntimeException("Failed to replace Gui#tabList!", e);
+            }
+        });
     }
 }
