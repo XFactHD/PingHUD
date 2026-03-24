@@ -1,7 +1,7 @@
 package xfacthd.pinghud;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.PlayerTabOverlay;
 import net.minecraft.client.multiplayer.PlayerInfo;
 
@@ -21,9 +21,9 @@ public final class CustomPlayerTabOverlay extends PlayerTabOverlay
     }
 
     @Override
-    protected void renderPingIcon(GuiGraphics graphics, int colWidth, int entryX, int entryY, PlayerInfo playerInfo)
+    protected void extractPingIcon(GuiGraphicsExtractor graphics, int slotWidth, int xo, int yo, PlayerInfo info)
     {
-        int ping = playerInfo.getLatency();
+        int ping = info.getLatency();
 
         int color;
         if (ping < 100)
@@ -40,11 +40,11 @@ public final class CustomPlayerTabOverlay extends PlayerTabOverlay
         }
 
         String text = formatPing(ping);
-        graphics.drawString(
+        graphics.text(
                 Minecraft.getInstance().font,
                 text,
-                entryX + colWidth - minecraft.font.width(text),
-                entryY,
+                xo + slotWidth - minecraft.font.width(text),
+                yo,
                 color
         );
     }

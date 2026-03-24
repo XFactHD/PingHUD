@@ -9,7 +9,8 @@ import xfacthd.pinghud.CustomPlayerTabOverlay;
 @Mixin(PlayerTabOverlay.class)
 public class MixinPlayerTabOverlay
 {
-    @ModifyArg(method = "render", at = @At(value = "INVOKE", target = "Ljava/lang/Math;min(II)I"), index = 0)
+    @SuppressWarnings("MethodMayBeStatic")
+    @ModifyArg(method = "extractRenderState", at = @At(value = "INVOKE", target = "Ljava/lang/Math;min(II)I"), index = 0)
     private int adjustColumnWidth(int first)
     {
         return first - 11 + CustomPlayerTabOverlay.getPingDisplayWidth();
