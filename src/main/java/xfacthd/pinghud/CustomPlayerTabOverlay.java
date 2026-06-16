@@ -16,7 +16,7 @@ public final class CustomPlayerTabOverlay extends PlayerTabOverlay
 
     public CustomPlayerTabOverlay(Minecraft mc)
     {
-        super(mc, mc.gui);
+        super(mc, mc.gui.hud);
         this.minecraft = mc;
     }
 

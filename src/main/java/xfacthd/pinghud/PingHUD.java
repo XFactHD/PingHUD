@@ -1,7 +1,7 @@
 package xfacthd.pinghud;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.Hud;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
@@ -26,8 +26,8 @@ public final class PingHUD
             try
             {
                 ObfuscationReflectionHelper.setPrivateValue(
-                        Gui.class,
-                        Minecraft.getInstance().gui,
+                        Hud.class,
+                        Minecraft.getInstance().gui.hud,
                         new CustomPlayerTabOverlay(Minecraft.getInstance()),
                         "tabList"
                 );
