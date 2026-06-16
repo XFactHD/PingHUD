@@ -1,4 +1,4 @@
-package xfacthd.pinghud;
+package io.github.xfacthd.pinghud;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -7,55 +7,40 @@ import net.minecraft.client.multiplayer.PlayerInfo;
 
 import java.util.Locale;
 
-public final class CustomPlayerTabOverlay extends PlayerTabOverlay
-{
+public final class CustomPlayerTabOverlay extends PlayerTabOverlay {
     private static final int PADDING = 6; //Must be an even number!!!
     private static final int DIGIT_COUNT = 4;
 
     private final Minecraft minecraft;
 
-    public CustomPlayerTabOverlay(Minecraft mc)
-    {
+    public CustomPlayerTabOverlay(Minecraft mc) {
         super(mc, mc.gui.hud);
         this.minecraft = mc;
     }
 
     @Override
-    protected void extractPingIcon(GuiGraphicsExtractor graphics, int slotWidth, int xo, int yo, PlayerInfo info)
-    {
+    protected void extractPingIcon(GuiGraphicsExtractor graphics, int slotWidth, int xo, int yo, PlayerInfo info) {
         int ping = info.getLatency();
 
         int color;
-        if (ping < 100)
-        {
+        if (ping < 100) {
             color = 0xFF00FF00;
-        }
-        else if (ping < 300)
-        {
+        } else if (ping < 300) {
             color = 0xFFFFFF00;
-        }
-        else
-        {
+        } else {
             color = 0xFFFF0000;
         }
 
         String text = formatPing(ping);
-        graphics.text(
-                Minecraft.getInstance().font,
-                text,
-                xo + slotWidth - minecraft.font.width(text),
-                yo,
-                color
-        );
+        int x = xo + slotWidth - minecraft.font.width(text);
+        graphics.text(minecraft.font, text, x, yo, color);
     }
 
-    private static String formatPing(int ping)
-    {
+    private static String formatPing(int ping) {
         return String.format(Locale.ROOT, "%" + DIGIT_COUNT + "dms", ping);
     }
 
-    public static int getPingDisplayWidth()
-    {
+    public static int getPingDisplayWidth() {
         return PADDING + Minecraft.getInstance().font.width(formatPing(0));
     }
 }

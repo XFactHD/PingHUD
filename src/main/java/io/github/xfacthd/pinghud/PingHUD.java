@@ -1,4 +1,4 @@
-package xfacthd.pinghud;
+package io.github.xfacthd.pinghud;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Hud;
@@ -10,30 +10,23 @@ import net.neoforged.fml.util.ObfuscationReflectionHelper;
 
 @Mod(value = PingHUD.MOD_ID, dist = Dist.CLIENT)
 @SuppressWarnings("UtilityClassWithPublicConstructor")
-public final class PingHUD
-{
+public final class PingHUD {
     public static final String MOD_ID = "pinghud";
 
-    public PingHUD(IEventBus modBus)
-    {
+    public PingHUD(IEventBus modBus) {
         modBus.addListener(PingHUD::onClientSetup);
     }
 
-    private static void onClientSetup(final FMLClientSetupEvent event)
-    {
-        event.enqueueWork(() ->
-        {
-            try
-            {
+    private static void onClientSetup(final FMLClientSetupEvent event) {
+        event.enqueueWork(() -> {
+            try {
                 ObfuscationReflectionHelper.setPrivateValue(
                         Hud.class,
                         Minecraft.getInstance().gui.hud,
                         new CustomPlayerTabOverlay(Minecraft.getInstance()),
                         "tabList"
                 );
-            }
-            catch (Throwable e)
-            {
+            } catch (Throwable e) {
                 throw new RuntimeException("Failed to replace Gui#tabList!", e);
             }
         });
